@@ -54,10 +54,3 @@ processing/                  # Core processing modules
 - [sentence-transformers](https://www.sbert.net/)
 - numpy
 
-
-## Source Document
-- [Annual Report FY 2023-24 (PDF)](https://www.swiggy.com/corporate/wp-content/uploads/2024/10/Annual-Report-FY-2023-24-1.pdf)
-
-## License
-This project is for educational and demonstration purposes only.
-
