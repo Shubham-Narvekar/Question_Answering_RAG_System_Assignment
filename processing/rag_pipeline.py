@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from google import genai
-from retriever import SwiggyRetriever
+from processing.retriever import SwiggyRetriever
 
 # Load environment variables from .env
 load_dotenv()
