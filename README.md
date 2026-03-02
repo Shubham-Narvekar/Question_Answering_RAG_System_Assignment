@@ -139,24 +139,6 @@ Explicit refusal instruction
 
 Context-only answer generation
 
-📂 Project Structure
-Assignment/
-│
-├── app.py
-│
-├── processing/
-│   ├── extract_pdf.py
-│   ├── chunking.py
-│   ├── embeddings.py
-│   ├── retriever.py
-│   ├── rag_pipeline.py
-│   
-│
-├── data/
-├── output/
-├── .env
-└── requirements.txt
-
 📌 Features
 
 Semantic search with FAISS
