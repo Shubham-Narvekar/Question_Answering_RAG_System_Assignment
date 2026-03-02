@@ -1,56 +1,172 @@
-# Swiggy RAG Application
+# Swiggy Annual Report RAG Question Answering System
 
-This project is a Retrieval-Augmented Generation (RAG) application designed to answer questions based on the content of a provided PDF document (e.g., Swiggy's Annual Report). It leverages FAISS for vector search and Sentence Transformers for semantic embeddings.
+A Retrieval-Augmented Generation (RAG) based AI system that answers user questions strictly using the Swiggy Annual Report (FY 2023–24).
 
-## Features
-- Extracts and chunks text from PDF documents
-- Generates embeddings for each chunk using a transformer model
-- Builds a FAISS index for efficient similarity search
-- Retrieves relevant document sections in response to user queries
-- CLI interface for interactive Q&A
-- Each result includes a similarity score, page number, section, and a text preview
-- **Source document:** [Annual Report FY 2023-24 (PDF)](https://www.swiggy.com/corporate/wp-content/uploads/2024/10/Annual-Report-FY-2023-24-1.pdf)
+This application ensures:
+- No hallucination
+- Context-grounded answers
+- Page-level citation
+- Strict document-based responses
 
-## Project Structure
+---
+
+## Objective
+
+Build an AI system that can:
+
+- Accept natural language questions
+- Retrieve relevant information from the Swiggy Annual Report
+- Generate accurate, context-grounded answers
+- Refuse out-of-scope queries
+
+The system must answer strictly from the document content.
+
+---
+
+## Data Source
+
+**Document:** Swiggy Annual Report FY 2023–24  
+**Source Link:**  
+https://www.swiggy.com/corporate/wp-content/uploads/2024/10/Annual-Report-FY-2023-24-1.pdf
+
+
+---
+
+## 🏗️ System Architecture
+
+
+PDF Extraction
+↓
+Intelligent Chunking
+↓
+Embedding Generation (Sentence Transformers)
+↓
+FAISS Vector Store
+↓
+Semantic Retrieval (Cosine Similarity)
+↓
+Gemini LLM (Strict Prompt)
+↓
+Final Grounded Answer
+
+
+---
+
+## 🔧 Tech Stack
+
+- Python 3.12
+- PyMuPDF (PDF Extraction)
+- tiktoken (Token-aware chunking)
+- Sentence Transformers (Embeddings)
+- FAISS (Vector Database)
+- Gemini API (LLM)
+- Streamlit (GUI)
+- dotenv (Environment Management)
+
+---
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/Shubham-Narvekar/Question_Answering_RAG_System_Assignment.git
+cd Assignment
 ```
-app.py                       # Main entry point (if applicable)
-data/                        # Source documents (PDFs)
-  Annual-Report-FY-2023-24...pdf
-output/                      # Output data (chunks, embeddings, index)
-  chunks.json
-  raw_extracted.json
-  faiss_index/
-    metadata.json
-    swiggy_faiss.index
-processing/                  # Core processing modules
-  __init__.py
-  chunking.py                # PDF chunking logic
-  embeddings.py              # Embedding generation
-  extract_pdf.py             # PDF extraction logic
-  rag_pipeline.py            # End-to-end RAG pipeline
-  retriever.py               # FAISS-based retriever (CLI interface)
+Create Virtual Environment
+```bash
+python -m venv venv
+venv\Scripts\activate
 ```
 
-## How It Works
-1. **PDF Extraction:** Extracts text from the source PDF.
-2. **Chunking:** Splits the extracted text into manageable chunks.
-3. **Embedding:** Generates vector embeddings for each chunk using Sentence Transformers (`all-mpnet-base-v2`).
-4. **Indexing:** Stores embeddings in a FAISS index for fast similarity search.
-5. **Retrieval:** On user query, embeds the query and retrieves the most relevant chunks from the index.
-6. **Display:** Shows top results with similarity score, page number, section, and a text preview.
+Install Dependencies
+```bash
+pip install pymupdf
+pip install tiktoken
+pip install sentence-transformers
+pip install faiss-cpu
+pip install numpy
+pip install tqdm
+pip install google-genai
+pip install python-dotenv
+```
 
-## Usage
-1. Place your PDF document in the `data/` directory.
-2. Run the processing pipeline to extract, chunk, embed, and index the document (see `processing/` scripts).
-3. Start the retriever CLI:
-   ```sh
-   python processing/retriever.py
-   ```
-4. Enter your question at the prompt. Type `exit` to quit.
+Environment Variables
 
-## Requirements
-- Python 3.8+
-- [faiss-cpu](https://github.com/facebookresearch/faiss)
-- [sentence-transformers](https://www.sbert.net/)
-- numpy
+Create a .env file in project root:
 
+```
+GEMINI_API_KEY=your_api_key_here
+```
+
+⚠️ Do NOT push .env to GitHub.
+
+🚀 Running the Application
+Run Streamlit GUI
+```bash
+streamlit run app.py
+```
+
+The app will open at:
+
+http://localhost:8501
+
+🧪 Example Questions
+
+What was Swiggy's consolidated net loss after tax for FY24?
+
+How many cities does Swiggy offer Food Delivery services in?
+
+How many Board meetings were held during FY24?
+
+How many active dark stores does Swiggy's Instamart operate?
+
+Out-of-scope test:
+
+What is Swiggy’s market valuation?
+
+🛡️ Hallucination Prevention Strategy
+
+Cosine similarity threshold filtering
+
+Top-k semantic retrieval
+
+Strict grounding prompt
+
+Temperature set to 0
+
+Explicit refusal instruction
+
+Context-only answer generation
+
+📂 Project Structure
+Assignment/
+│
+├── app.py
+│
+├── processing/
+│   ├── extract_pdf.py
+│   ├── chunking.py
+│   ├── embeddings.py
+│   ├── retriever.py
+│   ├── rag_pipeline.py
+│   
+│
+├── data/
+├── output/
+├── .env
+└── requirements.txt
+
+📌 Features
+
+Semantic search with FAISS
+
+Metadata preservation (page numbers)
+
+Overlapping token-aware chunking
+
+Context display in UI
+
+Grounded financial QA
+
+Out-of-scope rejection
