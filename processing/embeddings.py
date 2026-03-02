@@ -32,7 +32,8 @@ class SwiggyVectorStore:
     def build_faiss_index(self, embeddings):
         dimension = embeddings.shape[1]
 
-        index = faiss.IndexFlatL2(dimension)
+        index = faiss.IndexFlatIP(dimension)
+        faiss.normalize_L2(embeddings)
         index.add(embeddings)
 
         self.index = index
